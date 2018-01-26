@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class HelloSpringBootApplication {
 
-  Logger logger = LoggerFactory.getLogger(HelloSpringBootApplication.class);
+  private final Logger logger = LoggerFactory.getLogger(HelloSpringBootApplication.class);
 
   public static void main(String[] args) {
     SpringApplication.run(HelloSpringBootApplication.class, args);
@@ -20,13 +20,12 @@ public class HelloSpringBootApplication {
   CommandLineRunner loadDatabase(GreetingRepository repository) {
     return args -> {
       logger.debug("loading database..");
-      repository.save(new Greeting(1, "Hello"));
-      repository.save(new Greeting(2, "Hola"));
-      repository.save(new Greeting(3, "Ohai"));
+      repository.save(new Greeting(1L, "Hello"));
+      repository.save(new Greeting(2L, "Hola"));
+      repository.save(new Greeting(3L, "Ohai"));
       logger.debug("record count: {}", repository.count());
       repository.findAll().forEach(x -> logger.debug(x.toString()));
     };
-
   }
 
 }
